@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Pós Venda</title>
+  <style>
+    :root {
+      --bg-dark: #0d1b2a;
+      --bg-panel: #1b263b;
+      --accent: #00b4d8;
+      --accent-hover: #0096c7;
+      --text-light: #e0e1dd;
+      --shadow: rgba(0,0,0,0.3);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background: var(--bg-panel);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between; /* espaço entre contador e botão */
+      align-items: center;
+      box-shadow: 0 2px 6px var(--shadow);
+    }
+
+    #contador {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-light);
+      font-family: "Courier New", monospace; /* estilo de relógio */
+    }
+
+    .btn {
+      background: var(--accent);
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px var(--shadow);
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+      transform: scale(1.05);
+    }
+
+    #iconAtualizar {
+      width: 28px;
+      height: 28px;
+      transition: transform 0.5s linear;
+    }
+
+    .girando {
+      animation: girar 1s linear infinite;
+    }
+
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    iframe {
+      flex: 1;
+      border: none;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Contador de data à esquerda -->
+    <div id="contador">00.00.0000 00:00</div>
+
+    <!-- Botão de atualizar à direita -->
+    <button class="btn" id="btnAtualizar" title="Atualizar relatório" onclick="atualizarDashboard()">
+      <img id="iconAtualizar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEiElEQVR4nO2aXYhVVRSATw6VWiREYP4kOGkTWVqSFqRBJKSmgUoPkkSGP0FF9PMUJEJBojlYjRpELz5qUBI9hD89NONkijnQk2lZTVo59gNl6sz4xeLs4rLb59619zn73CucDy4Md+5aa+91zt57rbVXklRUVFRUVEQFuBV4CtgO7ANOAL8CF81H/j5u/rcNWAt0JJczwJ1AJ9BPOD8Am4EZyeUAcAWwGOileA4Ai8RG0ooAs4FDxOcgcHfSKgCjgLeBYcpDbL0JjGz25DuAPprHl8DUZk3+HmCA5iMnyJyyJ78AOEfr8Bcwv6zJ3wv8SetxLvqbQLrmf6N1ORttTwBGAkeUAzlvor1uYCewAVgDzAOmAV0RnSCb8qgYDuiqY/QTYBkwCxir0PVZg0nsBj4GLgU6YUuMIGe4wRN/QKnrKuDvBhO4y/x2OvBpgAOGgJlFhreHFEZ/18TsZhOtR5/1+xHAC8bJPvQWEjaTxvZaTgETG+iTydTj+Qy5eQGnz4IiHNDrYfDzRhsQ8H4DHUeBR11PD5hrznwtPUWktFrOAOMUOuUt0SAb63iH/Er8mJ7HAZ0ehh5T6Gv3HLzUEm5x6NnhoWNTHgf0K40crBM4/fcqAyvw50f7TQBu9FgK34VOvsNjkIsc8mOBn4DXa76TclcIUiobYenf6CHvHx2S1vA0yJpuc8h/VPObZ813ssGFstzSf5NHoLQmxAHblcq3OmQlgKlFgqhVJkAJ5SuHnS9Cx6hxwH6l8scdsu8Sh9stO+uUcntDHPCtUvltDtk8leB6vGjZWaqUOxHigAGl8mssufHE4x3L1gyl3JkQB1xQKm8LHFQIH1q2xinlzsdywKBDTlLiWOyybE2K6YABpfIbLLmJlLcEpsZcAt8olc+25NqAP4jDasvW/Jib4D6l8icdsrsoHgl62i07Lytl94Q4YJtS+QcO2Uconv+d5aZspqErxAFrlcqlSDHaUUXqK/jpz3XkGoMhSydGMvRMxmkgd/9F8J5D/0se8lO8HSCY+3kN/a6LSuBp8tNrV5mA64DTSvmTSSikzQlaXsnQ8VyOJEgqwtc7dG7y0LGxrJLYIHBfhp77PY5VTAX4NeDKDF0+S+uOYAcIpjNDy/cSnSXZ9wGrTOE0647hZ/PWtWfomAz84jGe7iQvpG0pPkgWObmBTtnBHwSekB0aWGKXzxwyU4BjnmPJf2NMeqRJW4oP/dqbIuUY5piqM6WVxGuRnpyAjWzYbFbXJoEAY4C3AmwP/Xu9VhikPTkhSFK13k6aGtiaYKo9UlQNobPQyddcj0tPTijyVHrkuDSh8kyTz7eb0+Zh4FWTg+SpHR4Grk5iQJp+ShNCqyJv281RJm81R7Vqi4wzDikc0jzc55IyNjKWh0qZvNU04Xs0xWqTK+fJZ+wJ2r6hGByOvuaVp8OWnDu3L0Pm5jrObh+COdZidInb9BQe5BQJsNAMsmi6S+sGLQJzQfqG3M/nmPRJE07nS2mbDelmKVnfViluAl+bgOqC+Zw1md4e85vVwWWsioqKioqKRMs/xuFAkgX8C7cAAAAASUVORK5CYII=" alt="Atualizar">
+    </button>
+  </header>
+
+  <iframe id="dashboard" 
+          src="https://lookerstudio.google.com/embed/reporting/21b6842e-db71-41bf-b2b6-e9d33c60d1e9/page/page_12345" 
+          allowfullscreen 
+          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+  </iframe>
+
+  <script>
+    const icon = document.getElementById('iconAtualizar');
+    const iframe = document.getElementById('dashboard');
+    const contador = document.getElementById('contador');
+
+    function atualizarDashboard() {
+      icon.classList.add('girando');
+      iframe.src = iframe.src;
+      iframe.onload = () => {
+        icon.classList.remove('girando');
+      }
+    }
+
+    function atualizarData() {
+      const agora = new Date();
+      const dia = String(agora.getDate()).padStart(2,'0');
+      const mes = String(agora.getMonth()+1).padStart(2,'0');
+      const ano = agora.getFullYear();
+      const horas = String(agora.getHours()).padStart(2,'0');
+      const minutos = String(agora.getMinutes()).padStart(2,'0');
+      contador.textContent = `${dia}.${mes}.${ano} ${horas}:${minutos}`;
+    }
+
+    // Atualiza a cada minuto
+    atualizarData();
+    setInterval(atualizarData, 60000);
+  </script>
+</body>
+</html>
