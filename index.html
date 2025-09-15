@@ -87,6 +87,16 @@
       flex: 1;
       border: none;
       width: 100%;
+       /* Para Firefox */
+      scrollbar-width: none;
+
+      /* Para IE/Edge antigos */
+      -ms-overflow-style: none;
+    }
+
+    /* Para Chrome, Edge, Safari */
+    iframe::-webkit-scrollbar {
+    display: none;
     }
   </style>
 </head>
@@ -137,6 +147,7 @@
   </script>
 </body>
 </html>
+
 
 
 
