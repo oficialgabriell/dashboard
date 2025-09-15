@@ -16,28 +16,24 @@
       --shadow: rgba(0,0,0,0.3);
     }
 
-    body {
-  margin: 0;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background: var(--bg-dark);
-  color: var(--text-light);
-  display: flex;
-  flex-direction: column;
-
-  /* REMOVI o height: 100vh */
-
-  /* Para Firefox */
-  scrollbar-width: none;
-
-  /* Para IE/Edge antigos */
-  -ms-overflow-style: none;
-}
-
-/* Para Chrome, Edge, Safari */
-body::-webkit-scrollbar {
-  display: none;
-}
-
+    body { 
+      margin: 0; 
+      font-family: "Segoe UI", 
+      Roboto, Arial, sans-serif; 
+      background: var(--bg-dark); 
+      color: var(--text-light); 
+      display: flex; 
+      flex-direction: column; 
+      height: 100vh; 
+      /* Para Firefox */ 
+      scrollbar-width: none; 
+      /* Para IE/Edge antigos */ 
+      -ms-overflow-style: none; 
+    } 
+    /* Para Chrome, Edge, Safari */ 
+    body::-webkit-scrollbar { 
+      display: none; 
+    }
 
     header {
       background: var(--bg-panel);
@@ -142,6 +138,7 @@ body::-webkit-scrollbar {
   </script>
 </body>
 </html>
+
 
 
 
