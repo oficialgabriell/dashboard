@@ -17,25 +17,27 @@
     }
 
     body {
-      margin: 0;
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-light);
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
 
-      /* Para Firefox */
-      scrollbar-width: none;
+  /* REMOVI o height: 100vh */
 
-      /* Para IE/Edge antigos */
-      -ms-overflow-style: none;
-    }
+  /* Para Firefox */
+  scrollbar-width: none;
 
-      /* Para Chrome, Edge, Safari */
-      body::-webkit-scrollbar {
-      display: none;
-    }
+  /* Para IE/Edge antigos */
+  -ms-overflow-style: none;
+}
+
+/* Para Chrome, Edge, Safari */
+body::-webkit-scrollbar {
+  display: none;
+}
+
 
     header {
       background: var(--bg-panel);
@@ -140,6 +142,7 @@
   </script>
 </body>
 </html>
+
 
 
 
