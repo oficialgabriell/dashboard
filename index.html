@@ -123,12 +123,18 @@
     const contador = document.getElementById('contador');
 
     function atualizarDashboard() {
-      icon.classList.add('girando');
-      iframe.src = iframe.src;
-      iframe.onload = () => {
-        icon.classList.remove('girando');
-      }
+  icon.classList.add('girando');
+
+    // remove parâmetros antigos da URL
+    const baseUrl = iframe.src.split("?")[0];
+    
+    // adiciona timestamp como parâmetro único
+    iframe.src = baseUrl + "?t=" + new Date().getTime();
+  
+    iframe.onload = () => {
+      icon.classList.remove('girando');
     }
+  }
 
     function atualizarData() {
       const agora = new Date();
@@ -147,6 +153,7 @@
   </script>
 </body>
 </html>
+
 
 
 
